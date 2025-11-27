@@ -297,7 +297,7 @@ export const ManagementPage: React.FC = () => {
           <Tabs
             value={entityType}
             onValueChange={(value) => setEntityType(value as EntityType)}
-            className="mb-4 border-b-2 border-gray-300 pb-2"
+            className="mb-4 border-b-2 pb-2"
           >
             <TabsList>
               <TabsTrigger

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const cardVariants = cva(
-  "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xs",
+  "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-2 shadow-xs",
   {
     variants: {
       tone: {
