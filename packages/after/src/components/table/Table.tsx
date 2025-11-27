@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Badge } from '../atoms/Badge';
+import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import {
+  Table as UiTable,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from '../ui/table';
+import { cn } from '@/lib/utils';
 
 interface Column {
   key: string;
@@ -95,14 +105,31 @@ export const Table: React.FC<TableProps> = ({
 
   const totalPages = Math.ceil(filteredData.length / pageSize);
 
-  const tableClasses = [
-    'table',
-    striped && 'table-striped',
-    bordered && 'table-bordered',
-    hover && 'table-hover',
-  ].filter(Boolean).join(' ');
-
   const actualColumns = columns || (tableData[0] ? Object.keys(tableData[0]).map(key => ({ key, header: key, width: undefined })) : []);
+
+  const formatLabel = (columnKey: string, value: any) => {
+    if (columnKey === 'category') return value;
+
+    if (columnKey === 'role') {
+      if (value === 'admin') return '관리자';
+      if (value === 'moderator') return '운영자';
+      if (value === 'user') return '사용자';
+      if (value === 'guest') return '게스트';
+    }
+
+    if (columnKey === 'status') {
+      if (value === 'active') return '활성';
+      if (value === 'inactive') return '비활성';
+      if (value === 'suspended') return '정지';
+      if (value === 'published') return '게시됨';
+      if (value === 'draft') return '임시저장';
+      if (value === 'archived') return '보관됨';
+      if (value === 'pending') return '대기중';
+      if (value === 'rejected') return '거부됨';
+    }
+
+    return value;
+  };
 
   // 🚨 Bad Practice: Table 컴포넌트가 도메인별 렌더링 로직을 알고 있음
   const renderCell = (row: any, columnKey: string) => {
@@ -111,14 +138,17 @@ export const Table: React.FC<TableProps> = ({
     // 도메인별 특수 렌더링
     if (entityType === 'user') {
       if (columnKey === 'role') {
-        return <Badge userRole={value} showIcon />;
+        return <Badge tone="slate">{formatLabel(columnKey, value)}</Badge>;
       }
       if (columnKey === 'status') {
         // User status를 Badge status로 변환
-        const badgeStatus =
-          value === 'active' ? 'published' :
-          value === 'inactive' ? 'draft' : 'rejected';
-        return <Badge status={badgeStatus} showIcon />;
+        const statusTone =
+          value === 'active'
+            ? 'green'
+            : value === 'inactive'
+              ? 'amber'
+              : 'rose';
+        return <Badge tone={statusTone}>{formatLabel(columnKey, value)}</Badge>;
       }
       if (columnKey === 'lastLogin') {
         return value || '-';
@@ -139,15 +169,24 @@ export const Table: React.FC<TableProps> = ({
 
     if (entityType === 'post') {
       if (columnKey === 'category') {
-        const type =
-          value === 'development' ? 'primary' :
-          value === 'design' ? 'info' :
-          value === 'accessibility' ? 'danger' :
-          'secondary';
-        return <Badge type={type} pill>{value}</Badge>;
+        const categoryTone =
+          value === 'development'
+            ? 'blue'
+            : value === 'design'
+              ? 'purple'
+              : value === 'accessibility'
+                ? 'emerald'
+                : 'slate';
+        return <Badge tone={categoryTone}>{value}</Badge>;
       }
       if (columnKey === 'status') {
-        return <Badge status={value} showIcon />;
+        const statusTone =
+          value === 'published'
+            ? 'green'
+            : value === 'draft'
+              ? 'amber'
+              : 'gray';
+        return <Badge tone={statusTone}>{formatLabel(columnKey, value)}</Badge>;
       }
       if (columnKey === 'views') {
         return value?.toLocaleString() || '0';
@@ -202,96 +241,94 @@ export const Table: React.FC<TableProps> = ({
   };
 
   return (
-    <div className="table-container">
+    <div className="space-y-4">
       {searchable && (
-        <div style={{ marginBottom: '16px' }}>
-          <input
+        <div>
+          <Input
             type="text"
             placeholder="검색..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              padding: '8px 12px',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              width: '300px',
-            }}
+            className="max-w-xs"
           />
         </div>
       )}
 
-      <table className={tableClasses}>
-        <thead>
-          <tr>
+      <UiTable>
+        <TableHeader>
+          <TableRow>
             {actualColumns.map((column) => (
-              <th
+              <TableHead
                 key={column.key}
                 style={column.width ? { width: column.width } : undefined}
                 onClick={() => sortable && handleSort(column.key)}
+                className={cn(sortable && 'cursor-pointer select-none')}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: sortable ? 'pointer' : 'default' }}>
+                <div className="flex items-center gap-1">
                   {column.header}
                   {sortable && sortColumn === column.key && (
-                    <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {sortDirection === 'asc' ? '▲' : '▼'}
+                    </span>
                   )}
                 </div>
-              </th>
+              </TableHead>
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((row, rowIndex) => (
-            <tr
-              key={rowIndex}
-              onClick={() => onRowClick?.(row)}
-              style={{ cursor: onRowClick ? 'pointer' : 'default' }}
-            >
-              {actualColumns.map((column) => (
-                <td key={column.key}>
-                  {entityType ? renderCell(row, column.key) : row[column.key]}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {paginatedData.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={actualColumns.length || 1}
+                className="py-6 text-center text-sm text-muted-foreground"
+              >
+                데이터가 없습니다.
+              </TableCell>
+            </TableRow>
+          ) : (
+            paginatedData.map((row, rowIndex) => (
+              <TableRow
+                key={rowIndex}
+                onClick={() => onRowClick?.(row)}
+                className={cn(
+                  onRowClick && 'cursor-pointer',
+                  hover && 'hover:bg-muted/50',
+                  striped && rowIndex % 2 === 1 && 'bg-muted/30'
+                )}
+              >
+                {actualColumns.map((column) => (
+                  <TableCell key={column.key}>
+                    {entityType ? renderCell(row, column.key) : row[column.key]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </UiTable>
 
       {totalPages > 1 && (
-        <div style={{
-          marginTop: '16px',
-          display: 'flex',
-          gap: '8px',
-          justifyContent: 'center',
-        }}>
-          <button
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+        <div className="mt-2 flex items-center justify-center gap-2">
+          <Button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: 'white',
-              borderRadius: '4px',
-              cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-            }}
+            variant="secondary"
+            size="sm"
           >
             이전
-          </button>
-          <span style={{ padding: '6px 12px' }}>
+          </Button>
+          <span className="px-2 text-sm text-muted-foreground">
             {currentPage} / {totalPages}
           </span>
-          <button
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+          <Button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: 'white',
-              borderRadius: '4px',
-              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-            }}
+            variant="secondary"
+            size="sm"
           >
             다음
-          </button>
+          </Button>
         </div>
       )}
     </div>

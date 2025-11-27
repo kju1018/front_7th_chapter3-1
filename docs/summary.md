@@ -93,3 +93,47 @@
 ### 리뷰받고 싶거나 질문하고 싶은 내용
 
 
+
+
+
+
+
+###최종구조
+
+
+components/
+  ui/                     ← 순수 UI 컴포넌트 (shadcn 스타일)
+    button.tsx
+    badge.tsx
+    input.tsx
+    select.tsx
+    textarea.tsx
+    checkbox.tsx
+    card.tsx
+    alert.tsx
+    modal.tsx
+    table.tsx
+    tabs.tsx
+    header.tsx  (pure UI 버전만)
+
+  table/                  ← Table 로직 전용 (분리 필수)
+    DataTable.tsx
+    hooks/
+      use-table-sort.ts
+      use-table-filter.ts
+      use-table-pagination.ts
+    columns/
+      user-columns.tsx
+      post-columns.tsx
+
+  layout/                 ← 레이아웃(페이지 구조)
+    Header.tsx            ← 기존 organisms/header.jsx 이동
+
+  form/                   ← 도메인 단위 form
+    UserForm.tsx
+    PostForm.tsx
+    …
+
+  (optional)
+  shared/
+  hooks/

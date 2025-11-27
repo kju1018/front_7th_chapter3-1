@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Input } from '../ui/input';
 
 // 🚨 Bad Practice: UI 컴포넌트가 도메인 규칙을 알고 있음
 interface FormInputProps {
@@ -97,32 +98,33 @@ export const FormInput: React.FC<FormInputProps> = ({
   };
 
   const displayError = error || internalError;
-  const inputClasses = ['form-input', displayError && 'error', `input-width-${width}`].filter(Boolean).join(' ');
-  const helperClasses = ['form-helper-text', displayError && 'error'].filter(Boolean).join(' ');
+  const inputWrapperClass = ['input-width', width].filter(Boolean).join(' ');
 
   return (
-    <div className="form-group">
+    <div className="mb-[16px]">
       {label && (
-        <label htmlFor={name} className="form-label">
+        <label htmlFor={name} className="flex items-center gap-1 text-sm font-medium text-gray-900">
           {label}
-          {required && <span style={{ color: '#d32f2f' }}>*</span>}
+          {required && <span className="text-destructive">*</span>}
         </label>
       )}
 
-      <input
-        id={name}
-        name={name}
-        type={type}
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        required={required}
-        disabled={disabled}
-        className={inputClasses}
-      />
+      <div className={inputWrapperClass}>
+        <Input
+          id={name}
+          name={name}
+          type={type}
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+          required={required}
+          disabled={disabled}
+          invalid={!!displayError}
+        />
+      </div>
 
-      {displayError && <span className={helperClasses}>{displayError}</span>}
-      {helpText && !displayError && <span className="form-helper-text">{helpText}</span>}
+      {displayError && <p className="text-xs text-destructive">{displayError}</p>}
+      {helpText && !displayError && <p className="text-xs text-muted-foreground">{helpText}</p>}
     </div>
   );
 };

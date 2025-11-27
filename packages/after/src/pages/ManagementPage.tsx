@@ -4,7 +4,6 @@ import { Tabs, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Card, CardContent } from '../components/ui/card';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { Badge } from '../components/atoms';
 import { Alert, Table, Modal } from '../components/organisms';
 import { FormInput, FormSelect, FormTextarea } from '../components/molecules';
 import { userService } from '../services/userService';
@@ -12,6 +11,9 @@ import { postService } from '../services/postService';
 import type { User } from '../services/userService';
 import type { Post } from '../services/postService';
 import '../styles/components.css';
+import { DataTable } from '@/components/table/DataTable';
+import { userColumns } from '@/components/table/columns/user-columns';
+import { postColumns } from '@/components/table/columns/post-columns';
 
 type EntityType = 'user' | 'post';
 type Entity = User | Post;
@@ -300,16 +302,8 @@ export const ManagementPage: React.FC = () => {
             className="mb-4 border-b-2 pb-2"
           >
             <TabsList>
-              <TabsTrigger
-                value="post"
-              >
-                게시글
-              </TabsTrigger>
-              <TabsTrigger
-                value="user"
-              >
-                사용자
-              </TabsTrigger>
+              <TabsTrigger value="post">게시글</TabsTrigger>
+              <TabsTrigger value="user">사용자</TabsTrigger>
             </TabsList>
           </Tabs>
 
@@ -374,17 +368,19 @@ export const ManagementPage: React.FC = () => {
             </div>
 
             <div style={{ border: '1px solid #ddd', background: 'white', overflow: 'auto' }}>
-              <Table
-                columns={renderTableColumns()}
+              <DataTable
                 data={data}
-                striped
-                hover
-                entityType={entityType}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                onPublish={(id) => handleStatusAction(id, 'publish')}
-                onArchive={(id) => handleStatusAction(id, 'archive')}
-                onRestore={(id) => handleStatusAction(id, 'restore')}
+                columns={entityType === 'user' ? userColumns : postColumns}
+                searchable
+                sortable
+                pageSize={10}
+                actions={{
+                  onEdit: handleEdit,
+                  onDelete: handleDelete,
+                  onPublish: (id) => handleStatusAction(id, 'publish'),
+                  onArchive: (id) => handleStatusAction(id, 'archive'),
+                  onRestore: (id) => handleStatusAction(id, 'restore'),
+                }}
               />
             </div>
           </div>
