@@ -1,8 +1,10 @@
 // table/columns/user-columns.tsx
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import type { Column } from "../types"
+import type { ColumnDef } from "../types"
 
+// UserRow 타입은 API User 타입 기반 + actions만 추가됨
+// (columns는 이제 UserRow 타입 정보에 의존하지 않음)
 export interface UserRow {
   id: number
   name: string
@@ -13,7 +15,7 @@ export interface UserRow {
   onDelete?: (id: number) => void
 }
 
-// 레거시 Table.tsx의 formatLabel 로직 그대로 가져오기
+// 레거시 그대로
 const formatLabel = (columnKey: string, value: string) => {
   if (columnKey === "role") {
     if (value === "admin") return "관리자"
@@ -36,7 +38,8 @@ const formatLabel = (columnKey: string, value: string) => {
   return value
 }
 
-export const userColumns: Column<UserRow>[] = [
+// ⭐ 변경된 부분: Column<UserRow>[] → ColumnDef[]
+export const userColumns: ColumnDef[] = [
   { key: "name", header: "이름", sortable: true },
 
   {
@@ -57,8 +60,8 @@ export const userColumns: Column<UserRow>[] = [
         row.status === "active"
           ? "green"
           : row.status === "inactive"
-            ? "amber"
-            : "rose"
+          ? "amber"
+          : "rose"
 
       return (
         <Badge tone={tone}>
@@ -83,7 +86,11 @@ export const userColumns: Column<UserRow>[] = [
         <Button size="sm" variant="primary" onClick={() => row.onEdit?.(row)}>
           수정
         </Button>
-        <Button size="sm" variant="danger" onClick={() => row.onDelete?.(row.id)}>
+        <Button
+          size="sm"
+          variant="danger"
+          onClick={() => row.onDelete?.(row.id)}
+        >
           삭제
         </Button>
       </div>

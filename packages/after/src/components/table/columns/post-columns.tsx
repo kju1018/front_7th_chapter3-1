@@ -1,7 +1,7 @@
 // table/columns/post-columns.tsx
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import type { Column } from "../types"
+import type { ColumnDef } from "../types"
 
 export interface PostRow {
   id: number
@@ -16,7 +16,6 @@ export interface PostRow {
   onRestore?: (id: number) => void
 }
 
-// 레거시 formatLabel 함수 그대로 반영
 const formatLabel = (columnKey: string, value: string) => {
   if (columnKey === "status") {
     if (value === "published") return "게시됨"
@@ -29,10 +28,10 @@ const formatLabel = (columnKey: string, value: string) => {
   return value
 }
 
-export const postColumns: Column<PostRow>[] = [
+// ⭐ Column<PostRow>[] → ColumnDef[]
+export const postColumns: ColumnDef[] = [
   { key: "title", header: "제목", sortable: true },
 
-  // CATEGORY
   {
     key: "category",
     header: "카테고리",
@@ -42,16 +41,15 @@ export const postColumns: Column<PostRow>[] = [
         row.category === "development"
           ? "blue"
           : row.category === "design"
-            ? "purple"
-            : row.category === "accessibility"
-              ? "emerald"
-              : "slate"
+          ? "purple"
+          : row.category === "accessibility"
+          ? "emerald"
+          : "slate"
 
       return <Badge tone={tone}>{row.category}</Badge>
     },
   },
 
-  // STATUS
   {
     key: "status",
     header: "상태",
@@ -61,8 +59,8 @@ export const postColumns: Column<PostRow>[] = [
         row.status === "published"
           ? "green"
           : row.status === "draft"
-            ? "amber"
-            : "gray"
+          ? "amber"
+          : "gray"
 
       return (
         <Badge tone={tone}>
@@ -72,7 +70,6 @@ export const postColumns: Column<PostRow>[] = [
     },
   },
 
-  // VIEWS
   {
     key: "views",
     header: "조회수",
@@ -80,7 +77,6 @@ export const postColumns: Column<PostRow>[] = [
     render: (row) => row.views?.toLocaleString() ?? "0",
   },
 
-  // ACTIONS
   {
     key: "actions",
     header: "액션",

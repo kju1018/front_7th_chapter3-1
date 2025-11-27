@@ -1,18 +1,23 @@
 // table/types.ts
-export type RowData = Record<string, any>
 
-export interface Column<T extends RowData> {
+export interface ColumnDef {
   key: string
   header: string
   sortable?: boolean
-  render?: (row: T) => React.ReactNode
+  render?: (row: any) => React.ReactNode
 }
 
-export interface DataTableProps<T extends RowData> {
-  data: T[]
-  columns: Column<T>[]
+export interface DataTableProps {
+  data: any[]
+  columns: ColumnDef[]
   searchable?: boolean
   sortable?: boolean
   pageSize?: number
-  actions?: Record<string, any>
+  actions?: {
+    onEdit?: (item: any) => void
+    onDelete?: (id: number) => void
+    onPublish?: (id: number) => void
+    onArchive?: (id: number) => void
+    onRestore?: (id: number) => void
+  }
 }
