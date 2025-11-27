@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Badge } from '../atoms/Badge';
-import { Button } from '../atoms/Button';
+import { Button } from '../ui/button';
 
 interface Column {
   key: string;
