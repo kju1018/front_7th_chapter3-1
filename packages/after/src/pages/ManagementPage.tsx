@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../components/ui/button';
+import { Tabs, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { cva } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 import { Badge } from '../components/atoms';
 import { Alert, Table, Modal } from '../components/organisms';
 import { FormInput, FormSelect, FormTextarea } from '../components/molecules';
@@ -11,6 +14,21 @@ import '../styles/components.css';
 
 type EntityType = 'user' | 'post';
 type Entity = User | Post;
+
+const tabTriggerVariants = cva(
+  'border border-gray-300 px-4 py-2 text-sm font-normal',
+  {
+    variants: {
+      active: {
+        true: 'border-blue-600 bg-blue-600 font-semibold text-white',
+        false: 'bg-white text-gray-800',
+      },
+    },
+    defaultVariants: {
+      active: false,
+    },
+  }
+);
 
 export const ManagementPage: React.FC = () => {
   const [entityType, setEntityType] = useState<EntityType>('post');
@@ -275,45 +293,24 @@ export const ManagementPage: React.FC = () => {
             padding: '10px',
           }}
         >
-          <div
-            style={{
-              marginBottom: '15px',
-              borderBottom: '2px solid #ccc',
-              paddingBottom: '5px',
-            }}
+          <Tabs
+            value={entityType}
+            onValueChange={(value) => setEntityType(value as EntityType)}
+            className="mb-4 border-b-2 border-gray-300 pb-2"
           >
-            <button
-              onClick={() => setEntityType('post')}
-              style={{
-                padding: '8px 16px',
-                marginRight: '5px',
-                fontSize: '14px',
-                fontWeight: entityType === 'post' ? 'bold' : 'normal',
-                border: '1px solid #999',
-                background: entityType === 'post' ? '#1976d2' : '#f5f5f5',
-                color: entityType === 'post' ? 'white' : '#333',
-                cursor: 'pointer',
-                borderRadius: '3px',
-              }}
-            >
-              게시글
-            </button>
-            <button
-              onClick={() => setEntityType('user')}
-              style={{
-                padding: '8px 16px',
-                fontSize: '14px',
-                fontWeight: entityType === 'user' ? 'bold' : 'normal',
-                border: '1px solid #999',
-                background: entityType === 'user' ? '#1976d2' : '#f5f5f5',
-                color: entityType === 'user' ? 'white' : '#333',
-                cursor: 'pointer',
-                borderRadius: '3px',
-              }}
-            >
-              사용자
-            </button>
-          </div>
+            <TabsList>
+              <TabsTrigger
+                value="post"
+              >
+                게시글
+              </TabsTrigger>
+              <TabsTrigger
+                value="user"
+              >
+                사용자
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
 
           <div>
             <div style={{ marginBottom: '15px', textAlign: 'right' }}>
