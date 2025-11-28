@@ -1,4 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Table as ShadcnTable,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/atoms/Button';
 
 export interface Column {
   key: string;
@@ -80,104 +90,88 @@ export const Table: React.FC<TableProps> = ({
 
   const totalPages = Math.ceil(filteredData.length / pageSize);
 
-  const tableClasses = [
-    'table',
-    striped && 'table-striped',
-    bordered && 'table-bordered',
-    hover && 'table-hover',
-  ].filter(Boolean).join(' ');
-
   return (
-    <div className="table-container">
+    <div className="w-full">
       {searchable && (
-        <div style={{ marginBottom: '16px' }}>
-          <input
+        <div className="mb-4">
+          <Input
             type="text"
             placeholder="검색..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              padding: '8px 12px',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              width: '300px',
-            }}
+            className="max-w-xs"
           />
         </div>
       )}
 
-      <table className={tableClasses}>
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th
-                key={column.key}
-                style={column.width ? { width: column.width } : undefined}
-                onClick={() => sortable && handleSort(column.key)}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: sortable ? 'pointer' : 'default' }}>
-                  {column.header}
-                  {sortable && sortColumn === column.key && (
-                    <span>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  )}
-                </div>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {paginatedData.map((row, rowIndex) => (
-            <tr
-              key={rowIndex}
-              onClick={() => onRowClick?.(row)}
-              style={{ cursor: onRowClick ? 'pointer' : 'default' }}
-            >
+      <div className={bordered ? 'border rounded-md' : ''}>
+        <ShadcnTable>
+          <TableHeader>
+            <TableRow>
               {columns.map((column) => (
-                <td key={column.key}>
-                  {renderCell ? renderCell(row, column.key) : row[column.key]}
-                </td>
+                <TableHead
+                  key={column.key}
+                  style={column.width ? { width: column.width } : undefined}
+                  onClick={() => sortable && handleSort(column.key)}
+                  className={sortable ? 'cursor-pointer select-none' : ''}
+                >
+                  <div className="flex items-center gap-1">
+                    {column.header}
+                    {sortable && sortColumn === column.key && (
+                      <span className="text-xs">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                    )}
+                  </div>
+                </TableHead>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {paginatedData.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="text-center text-muted-foreground">
+                  데이터가 없습니다
+                </TableCell>
+              </TableRow>
+            ) : (
+              paginatedData.map((row, rowIndex) => (
+                <TableRow
+                  key={rowIndex}
+                  onClick={() => onRowClick?.(row)}
+                  className={onRowClick ? 'cursor-pointer' : ''}
+                >
+                  {columns.map((column) => (
+                    <TableCell key={column.key}>
+                      {renderCell ? renderCell(row, column.key) : row[column.key]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </ShadcnTable>
+      </div>
 
       {totalPages > 1 && (
-        <div style={{
-          marginTop: '16px',
-          display: 'flex',
-          gap: '8px',
-          justifyContent: 'center',
-        }}>
-          <button
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
             disabled={currentPage === 1}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: 'white',
-              borderRadius: '4px',
-              cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
-            }}
           >
             이전
-          </button>
-          <span style={{ padding: '6px 12px' }}>
+          </Button>
+          <span className="text-sm px-3">
             {currentPage} / {totalPages}
           </span>
-          <button
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
-            style={{
-              padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: 'white',
-              borderRadius: '4px',
-              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
-            }}
           >
             다음
-          </button>
+          </Button>
         </div>
       )}
     </div>

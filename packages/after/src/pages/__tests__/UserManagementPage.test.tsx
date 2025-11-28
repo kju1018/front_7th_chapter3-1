@@ -26,7 +26,7 @@ describe('UserManagementPage', () => {
 
     await user.type(usernameInput, 'testuser');
     await user.type(emailInput, 'test@example.com');
-    
+
     const createBtn = screen.getByRole('button', { name: '생성' });
     await user.click(createBtn);
 

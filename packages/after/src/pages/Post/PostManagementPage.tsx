@@ -47,7 +47,7 @@ export const PostManagementPage: React.FC = () => {
       await loadData();
       setIsCreateModalOpen(false);
       setFormData({});
-      setAlertMessage('게시글가 생성되었습니다');
+      setAlertMessage('게시글이 생성되었습니다');
       setShowSuccessAlert(true);
     } catch (error: any) {
       setErrorMessage(error.message || '생성에 실패했습니다');
@@ -77,7 +77,7 @@ export const PostManagementPage: React.FC = () => {
       setIsEditModalOpen(false);
       setFormData({});
       setSelectedItem(null);
-      setAlertMessage('게시글가 수정되었습니다');
+      setAlertMessage('게시글이 수정되었습니다');
       setShowSuccessAlert(true);
     } catch (error: any) {
       setErrorMessage(error.message || '수정에 실패했습니다');

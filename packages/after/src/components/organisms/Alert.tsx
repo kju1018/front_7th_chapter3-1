@@ -1,11 +1,6 @@
-import React from 'react';
-import {
-  Alert as ShadcnAlert,
-  AlertTitle,
-  AlertDescription
-} from '../ui/alert';
-import { X, Info, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React from 'react'
+import {Alert as ShadcnAlert, AlertDescription, AlertTitle} from '../ui/alert'
+import {AlertTriangle, CheckCircle2, Info, X, XCircle} from 'lucide-react'
 
 interface AlertProps {
   children: React.ReactNode;
@@ -35,10 +30,8 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <ShadcnAlert variant={variant} className="relative">
       {showIcon && getIcon()}
-      <div className="grid gap-1">
-        {title && <AlertTitle>{title}</AlertTitle>}
-        <AlertDescription>{children}</AlertDescription>
-      </div>
+      {title && <AlertTitle>{title}</AlertTitle>}
+      <AlertDescription>{children}</AlertDescription>
       {onClose && (
         <button
           onClick={onClose}
