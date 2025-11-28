@@ -1,9 +1,12 @@
-* {
-  margin:0;
-  padding:0;
+@layer components {
+  * {
+    margin: 0;
+    padding: 0;
+  }
 }
 
-/* Button styles */
+
+  /* Button styles */
 .btn {
   display: inline-block;
   font-family: Arial, sans-serif;

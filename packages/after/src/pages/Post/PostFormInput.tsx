@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormInput } from '@/components/molecules';
+import { FormInput } from '@/components/molecules/FormInput';
 
 interface PostFormInputProps {
   name: string;

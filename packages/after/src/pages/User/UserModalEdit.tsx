@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal } from '@/components/organisms';
-import { Button } from '@/components/atoms';
-import { Alert } from '@/components/organisms';
-import { FormSelect } from '@/components/molecules';
+import { Modal } from '@/components/organisms/Modal';
+import { Button } from '@/components/atoms/Button';
+import { Alert } from '@/components/organisms/Alert';
+import { FormSelect } from '@/components/molecules/FormSelect';
 import { UserFormInput } from './UserFormInput';
 import type { User } from '@/services/userService.ts';
 

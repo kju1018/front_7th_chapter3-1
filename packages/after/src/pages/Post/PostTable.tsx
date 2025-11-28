@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, type Column } from '../../components/organisms/Table';
-import { Button, Badge } from '@/components/atoms';
+import { Button } from '@/components/atoms/Button';
+import { Badge } from '@/components/atoms/Badge';
 import { PostStatusBadge } from './PostStatusBadge';
 import type { Post } from '@/services/postService.ts';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, type Column } from '../../components/organisms/Table';
-import { Button } from '@/components/atoms';
+import { Button } from '@/components/atoms/Button';
 import { UserRoleBadge } from './UserRoleBadge';
 import { UserStatusBadge } from './UserStatusBadge';
 import type { User } from '@/services/userService.ts';

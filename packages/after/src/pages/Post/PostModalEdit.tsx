@@ -1,8 +1,10 @@
 import React from 'react';
-import { Modal } from '@/components/organisms';
-import { Button } from '@/components/atoms';
-import { Alert } from '@/components/organisms';
-import { FormInput, FormSelect, FormTextarea } from '@/components/molecules';
+import { Modal } from '@/components/organisms/Modal';
+import { Button } from '@/components/atoms/Button';
+import { Alert } from '@/components/organisms/Alert';
+import { FormInput } from '@/components/molecules/FormInput';
+import { FormSelect } from '@/components/molecules/FormSelect';
+import { FormTextarea } from '@/components/molecules/FormTextarea';
 import { PostFormInput } from './PostFormInput';
 import type { Post } from '@/services/postService.ts';
 

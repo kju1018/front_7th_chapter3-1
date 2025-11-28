@@ -1,7 +1,9 @@
 import React from 'react';
-import { Modal } from '@/components/organisms';
-import { Button } from '@/components/atoms';
-import { FormInput, FormSelect, FormTextarea } from '@/components/molecules';
+import { Modal } from '@/components/organisms/Modal';
+import { Button } from '@/components/atoms/Button';
+import { FormInput } from '@/components/molecules/FormInput';
+import { FormSelect } from '@/components/molecules/FormSelect';
+import { FormTextarea } from '@/components/molecules/FormTextarea';
 import { PostFormInput } from './PostFormInput';
 
 interface PostModalCreateProps {

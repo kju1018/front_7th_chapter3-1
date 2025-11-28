@@ -1,6 +1,12 @@
 import React from 'react';
+import {
+  Alert as ShadcnAlert,
+  AlertTitle,
+  AlertDescription
+} from '../ui/alert';
+import { X, Info, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-// Alert - Different styling approach with inconsistent variants
 interface AlertProps {
   children: React.ReactNode;
   variant?: 'info' | 'success' | 'warning' | 'error' | 'default';
@@ -18,28 +24,29 @@ export const Alert: React.FC<AlertProps> = ({
 }) => {
   const getIcon = () => {
     switch (variant) {
-      case 'info': return 'ℹ️';
-      case 'success': return '✓';
-      case 'warning': return '⚠️';
-      case 'error': return '✕';
-      default: return '•';
+      case 'info': return <Info className="h-4 w-4" />;
+      case 'success': return <CheckCircle2 className="h-4 w-4" />;
+      case 'warning': return <AlertTriangle className="h-4 w-4" />;
+      case 'error': return <XCircle className="h-4 w-4" />;
+      default: return null;
     }
   };
 
-  const alertClasses = ['alert', `alert-${variant}`].join(' ');
-
   return (
-    <div className={alertClasses}>
-      {showIcon && <div className="alert-icon">{getIcon()}</div>}
-      <div className="alert-content">
-        {title && <div className="alert-title">{title}</div>}
-        <div className="alert-body">{children}</div>
+    <ShadcnAlert variant={variant} className="relative">
+      {showIcon && getIcon()}
+      <div className="grid gap-1">
+        {title && <AlertTitle>{title}</AlertTitle>}
+        <AlertDescription>{children}</AlertDescription>
       </div>
       {onClose && (
-        <button onClick={onClose} className="alert-close">
-          ×
+        <button
+          onClick={onClose}
+          className="absolute right-2 top-2 rounded-md p-1 hover:bg-black/5 transition-colors"
+        >
+          <X className="h-4 w-4" />
         </button>
       )}
-    </div>
+    </ShadcnAlert>
   );
 };

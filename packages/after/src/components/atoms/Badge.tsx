@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge as ShadcnBadge } from '../ui/badge';
 
 interface BadgeProps {
   children: React.ReactNode;
@@ -13,16 +14,9 @@ export const Badge: React.FC<BadgeProps> = ({
   size = 'medium',
   pill = false,
 }) => {
-  const classes = [
-    'badge',
-    `badge-${type}`,
-    `badge-${size}`,
-    pill && 'badge-pill',
-  ].filter(Boolean).join(' ');
-
   return (
-    <span className={classes}>
+    <ShadcnBadge variant={type}>
       {children}
-    </span>
+    </ShadcnBadge>
   );
 };

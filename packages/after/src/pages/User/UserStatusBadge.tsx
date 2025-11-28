@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from '@/components/atoms';
+import { Badge } from '@/components/atoms/Badge';
 import type { User } from '@/services/userService.ts';
 
 export const UserStatusBadge: React.FC<{ user: User }> = ({ user }) => {

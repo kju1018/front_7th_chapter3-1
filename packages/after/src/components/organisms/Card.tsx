@@ -1,4 +1,12 @@
 import React from 'react';
+import {
+  Card as ShadcnCard,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardAction,
+} from '../ui/card';
 
 interface CardProps {
   children?: React.ReactNode;
@@ -15,20 +23,18 @@ export const Card: React.FC<CardProps> = ({
   variant = 'default',
   headerActions,
 }) => {
-  const cardClasses = ['card', `card-${variant}`].join(' ');
-
   return (
-    <div className={cardClasses}>
+    <ShadcnCard>
       {(title || subtitle || headerActions) && (
-        <div className="card-header">
+        <CardHeader>
           <div>
-            {title && <h3 className="card-title">{title}</h3>}
-            {subtitle && <p className="card-subtitle">{subtitle}</p>}
+            {title && <CardTitle>{title}</CardTitle>}
+            {subtitle && <CardDescription>{subtitle}</CardDescription>}
           </div>
-          {headerActions && <div>{headerActions}</div>}
-        </div>
+          {headerActions && <CardAction>{headerActions}</CardAction>}
+        </CardHeader>
       )}
-      <div className="card-body">{children}</div>
-    </div>
+      <CardContent>{children}</CardContent>
+    </ShadcnCard>
   );
 };

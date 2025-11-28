@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button as ShadcnButton } from '../ui/button';
+import { cn } from '@/lib/utils';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -19,21 +21,16 @@ export const Button: React.FC<ButtonProps> = ({
   size = 'md',
   fullWidth = false,
 }) => {
-  const classes = [
-    'btn',
-    `btn-${variant}`,
-    `btn-${size}`,
-    fullWidth && 'btn-full-width',
-  ].filter(Boolean).join(' ');
-
   return (
-    <button
+    <ShadcnButton
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={classes}
+      variant={variant}
+      size={size}
+      className={cn(fullWidth && 'w-full')}
     >
       {children}
-    </button>
+    </ShadcnButton>
   );
 };
