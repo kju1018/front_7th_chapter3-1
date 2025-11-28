@@ -11,7 +11,7 @@ import {
 import { useTableSort } from './hooks/use-table-sort';
 import { useTableFilter } from './hooks/use-table-filter';
 import { useTablePagination } from './hooks/use-table-pagination';
-import type { ColumnDef, DataTableProps } from './types';
+import type { DataTableProps } from './types';
 
 export function DataTable({
   data,
