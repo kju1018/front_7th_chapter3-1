@@ -1,4 +1,6 @@
-import type React from 'react';
+import type React from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 interface FormTextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -20,24 +22,22 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
   onValueChange,
   ...rest
 }) => {
-  const textareaClasses = ['form-textarea', error && 'error', className].filter(Boolean).join(' ');
-  const helperClasses = ['form-helper-text', error && 'error'].filter(Boolean).join(' ');
-
   return (
-    <div className="form-group">
+    <div className="flex w-full flex-col gap-1">
       {label && (
-        <label className="form-label">
+        <label className="text-sm font-medium">
           {label}
           {required && <span className="ml-1 text-destructive">*</span>}
         </label>
       )}
 
-      <textarea
+      <Textarea
+        aria-invalid={!!error}
         placeholder={placeholder}
         required={required}
         disabled={disabled}
         rows={rows}
-        className={textareaClasses}
+        className={cn(error && "aria-invalid:border-destructive aria-invalid:ring-destructive/30", className)}
         onChange={(e) => {
           rest.onChange?.(e);
           onValueChange?.(e.target.value);
@@ -45,8 +45,8 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
         {...rest}
       />
 
-      {error && <span className={helperClasses}>{error}</span>}
-      {helpText && !error && <span className="form-helper-text">{helpText}</span>}
+      {error && <p className="text-xs text-destructive">{error}</p>}
+      {!error && helpText && <p className="text-xs text-muted-foreground">{helpText}</p>}
     </div>
   );
 };

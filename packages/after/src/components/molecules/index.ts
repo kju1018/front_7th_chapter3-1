@@ -1,2 +1,2 @@
-export { FormTextarea } from './FormTextarea';
+export { FormTextarea } from '../form/textarea';
 export { FormCheckbox } from './FormCheckbox';
