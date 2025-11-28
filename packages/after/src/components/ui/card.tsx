@@ -9,11 +9,11 @@ const cardVariants = cva(
     variants: {
       tone: {
         default: "",
-        blue: "border-blue-200 bg-blue-50",
-        green: "border-green-200 bg-green-50",
-        amber: "border-amber-200 bg-amber-50",
-        rose: "border-rose-200 bg-rose-50",
-        gray: "border-gray-300 bg-gray-100",
+        blue: "border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-900/40 dark:bg-blue-900/20 dark:text-blue-100",
+        green: "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900/40 dark:bg-emerald-900/20 dark:text-emerald-100",
+        amber: "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-900/40 dark:bg-amber-900/20 dark:text-amber-100",
+        rose: "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900/40 dark:bg-rose-900/20 dark:text-rose-100",
+        gray: "border-border bg-muted text-foreground",
       },
     },
     defaultVariants: {

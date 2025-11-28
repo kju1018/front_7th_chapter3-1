@@ -217,12 +217,12 @@ export const ManagementPage: React.FC = () => {
       <div className="mx-auto max-w-7xl p-5">
         {/* HEADER */}
         <div className="mb-5">
-          <h1 className="mb-1 text-2xl font-bold text-gray-800">관리 시스템</h1>
-          <p className="text-sm text-gray-600">사용자와 게시글을 관리하세요</p>
+          <h1 className="mb-1 text-2xl font-bold text-foreground">관리 시스템</h1>
+          <p className="text-sm text-muted-foreground">사용자와 게시글을 관리하세요</p>
         </div>
 
         {/* TABS */}
-        <div className="border border-gray-200 bg-white p-2.5">
+        <div className="border border-border bg-card p-2.5">
           <Tabs
             value={entityType}
             onValueChange={(value) => setEntityType(value as EntityType)}
@@ -261,42 +261,42 @@ export const ManagementPage: React.FC = () => {
           <div className="mb-4 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] gap-2.5">
             <Card tone="blue">
               <CardContent padding="compact">
-                <div className="mb-1 text-xs text-gray-600">전체</div>
+                <div className="mb-1 text-xs text-muted-foreground">전체</div>
                 <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
               </CardContent>
             </Card>
 
             <Card tone="green">
               <CardContent padding="compact">
-                <div className="mb-1 text-xs text-gray-600">{stats.stat1.label}</div>
+                  <div className="mb-1 text-xs text-muted-foreground">{stats.stat1.label}</div>
                 <div className="text-2xl font-bold text-green-700">{stats.stat1.value}</div>
               </CardContent>
             </Card>
 
             <Card tone="amber">
               <CardContent padding="compact">
-                <div className="mb-1 text-xs text-gray-600">{stats.stat2.label}</div>
+                  <div className="mb-1 text-xs text-muted-foreground">{stats.stat2.label}</div>
                 <div className="text-2xl font-bold text-amber-600">{stats.stat2.value}</div>
               </CardContent>
             </Card>
 
             <Card tone="rose">
               <CardContent padding="compact">
-                <div className="mb-1 text-xs text-gray-600">{stats.stat3.label}</div>
+                  <div className="mb-1 text-xs text-muted-foreground">{stats.stat3.label}</div>
                 <div className="text-2xl font-bold text-rose-700">{stats.stat3.value}</div>
               </CardContent>
             </Card>
 
             <Card tone="gray">
               <CardContent padding="compact">
-                <div className="mb-1 text-xs text-gray-600">{stats.stat4.label}</div>
-                <div className="text-2xl font-bold text-gray-800">{stats.stat4.value}</div>
+                  <div className="mb-1 text-xs text-muted-foreground">{stats.stat4.label}</div>
+                  <div className="text-2xl font-bold text-foreground">{stats.stat4.value}</div>
               </CardContent>
             </Card>
           </div>
 
           {/* TABLE */}
-          <div className="overflow-auto border border-gray-200 bg-white">
+            <div className="overflow-auto border border-border bg-card">
             <DataTable
               data={data}
               columns={entityType === 'user' ? userColumns : postColumns}
