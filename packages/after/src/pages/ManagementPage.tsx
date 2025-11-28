@@ -301,6 +301,7 @@ export const ManagementPage: React.FC = () => {
               data={data}
               columns={entityType === 'user' ? userColumns : postColumns}
               pageSize={10}
+              sortable={true}
               actions={{
                 onEdit: handleEdit,
                 onDelete: handleDelete,
