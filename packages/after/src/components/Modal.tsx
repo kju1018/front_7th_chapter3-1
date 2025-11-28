@@ -30,8 +30,8 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const sizeClass = {
     small: "max-w-sm",
-    medium: "max-w-lg",
-    large: "max-w-2xl",
+    medium: "max-w-2xl",
+    large: "max-w-4xl",
   }[size];
 
   return (
