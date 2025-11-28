@@ -1,23 +1,14 @@
-import React from 'react';
+import type React from 'react';
 
-// Textarea Component - Yet another inconsistent API
-interface FormTextareaProps {
-  name: string;
-  value: string;
-  onChange: (value: string) => void;
+interface FormTextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
-  placeholder?: string;
-  required?: boolean;
-  disabled?: boolean;
   error?: string;
   helpText?: string;
-  rows?: number;
+  onValueChange?: (value: string) => void;
 }
 
 export const FormTextarea: React.FC<FormTextareaProps> = ({
-  name,
-  value,
-  onChange,
   label,
   placeholder,
   required = false,
@@ -25,8 +16,11 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
   error,
   helpText,
   rows = 4,
+  className,
+  onValueChange,
+  ...rest
 }) => {
-  const textareaClasses = ['form-textarea', error && 'error'].filter(Boolean).join(' ');
+  const textareaClasses = ['form-textarea', error && 'error', className].filter(Boolean).join(' ');
   const helperClasses = ['form-helper-text', error && 'error'].filter(Boolean).join(' ');
 
   return (
@@ -39,14 +33,16 @@ export const FormTextarea: React.FC<FormTextareaProps> = ({
       )}
 
       <textarea
-        name={name}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
         disabled={disabled}
         rows={rows}
         className={textareaClasses}
+        onChange={(e) => {
+          rest.onChange?.(e);
+          onValueChange?.(e.target.value);
+        }}
+        {...rest}
       />
 
       {error && <span className={helperClasses}>{error}</span>}

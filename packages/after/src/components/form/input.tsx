@@ -1,4 +1,5 @@
 // components/form/input.tsx
+import type React from "react";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
@@ -16,12 +17,12 @@ const formInputVariants = cva("flex flex-col gap-1 w-full", {
 });
 
 interface FormInputProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size" | "onChange">,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     VariantProps<typeof formInputVariants> {
   label?: string;
   error?: string;
   helpText?: string;
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
 }
 
 export function FormInput({
@@ -31,7 +32,7 @@ export function FormInput({
   fullWidth,
   className,
   required,
-  onChange,
+  onValueChange,
   ...rest
 }: FormInputProps) {
   return (
@@ -47,8 +48,10 @@ export function FormInput({
         aria-invalid={!!error}
         required={required}
         {...rest}
-        // 🔥 핵심 수정: 이벤트 → value 로 변환해서 상위에 전달
-        onChange={(e) => onChange?.(e.target.value)}
+        onChange={(e) => {
+          rest.onChange?.(e);
+          onValueChange?.(e.target.value);
+        }}
       />
 
       {error && <p className="text-xs text-destructive">{error}</p>}

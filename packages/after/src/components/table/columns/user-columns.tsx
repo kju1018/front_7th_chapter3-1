@@ -7,7 +7,8 @@ import type { ColumnDef } from "../types"
 // (columns는 이제 UserRow 타입 정보에 의존하지 않음)
 export interface UserRow {
   id: number
-  name: string
+  username: string
+  email: string
   role: string
   status: string
   lastLogin?: string
@@ -40,7 +41,8 @@ const formatLabel = (columnKey: string, value: string) => {
 
 // ⭐ 변경된 부분: Column<UserRow>[] → ColumnDef[]
 export const userColumns: ColumnDef[] = [
-  { key: "name", header: "이름", sortable: true },
+  { key: "username", header: "사용자명", sortable: true },
+  { key: "email", header: "이메일", sortable: true },
 
   {
     key: "role",
