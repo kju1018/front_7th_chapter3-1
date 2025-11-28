@@ -1,11 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
+  push: # push trigger
     branches:
       - main
-
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,41 +15,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
           version: latest
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: "22"
           cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Build Main App
         run: pnpm run build:after
+
+      - name: Build Storybook
+        run: pnpm run build-storybook
+
+      - name: Prepare deployment
+        run: |
+          cp packages/after/dist/index.html packages/after/dist/404.html
+          cp -r packages/after/storybook-static packages/after/dist/storybook
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/after/dist
+          path: "./packages/after/dist"
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
