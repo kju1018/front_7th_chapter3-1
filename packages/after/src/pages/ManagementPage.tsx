@@ -4,7 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Card, CardContent } from '../components/ui/card';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { Alert, Table, Modal } from '../components/organisms';
+import { Alert, Modal } from '../components/organisms';
 import { FormInput, FormSelect, FormTextarea } from '../components/molecules';
 import { userService } from '../services/userService';
 import { postService } from '../services/postService';
@@ -17,21 +17,6 @@ import { postColumns } from '@/components/table/columns/post-columns';
 
 type EntityType = 'user' | 'post';
 type Entity = User | Post;
-
-const tabTriggerVariants = cva(
-  'border border-gray-300 px-4 py-2 text-sm font-normal',
-  {
-    variants: {
-      active: {
-        true: 'border-blue-600 bg-blue-600 font-semibold text-white',
-        false: 'bg-white text-gray-800',
-      },
-    },
-    defaultVariants: {
-      active: false,
-    },
-  }
-);
 
 export const ManagementPage: React.FC = () => {
   const [entityType, setEntityType] = useState<EntityType>('post');
@@ -242,60 +227,17 @@ export const ManagementPage: React.FC = () => {
       };
     }
   };
-
-  // 🚨 Table 컴포넌트에 로직을 위임하여 간소화
-  const renderTableColumns = () => {
-    if (entityType === 'user') {
-      return [
-        { key: 'id', header: 'ID', width: '60px' },
-        { key: 'username', header: '사용자명', width: '150px' },
-        { key: 'email', header: '이메일' },
-        { key: 'role', header: '역할', width: '120px' },
-        { key: 'status', header: '상태', width: '120px' },
-        { key: 'createdAt', header: '생성일', width: '120px' },
-        { key: 'lastLogin', header: '마지막 로그인', width: '140px' },
-        { key: 'actions', header: '관리', width: '200px' },
-      ];
-    } else {
-      return [
-        { key: 'id', header: 'ID', width: '60px' },
-        { key: 'title', header: '제목' },
-        { key: 'author', header: '작성자', width: '120px' },
-        { key: 'category', header: '카테고리', width: '140px' },
-        { key: 'status', header: '상태', width: '120px' },
-        { key: 'views', header: '조회수', width: '100px' },
-        { key: 'createdAt', header: '작성일', width: '120px' },
-        { key: 'actions', header: '관리', width: '250px' },
-      ];
-    }
-  };
-
   const stats = getStats();
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f0f0f0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <h1
-            style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              marginBottom: '5px',
-              color: '#333',
-            }}
-          >
-            관리 시스템
-          </h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>사용자와 게시글을 관리하세요</p>
+    <div className="min-h-screen bg-muted/50">
+      <div className="mx-auto max-w-screen-xl p-5">
+        <div className="mb-5">
+          <h1 className="mb-1 text-2xl font-bold text-gray-800">관리 시스템</h1>
+          <p className="text-sm text-gray-600">사용자와 게시글을 관리하세요</p>
         </div>
 
-        <div
-          style={{
-            background: 'white',
-            border: '1px solid #ddd',
-            padding: '10px',
-          }}
-        >
+        <div className="border border-gray-200 bg-white p-2.5">
           <Tabs
             value={entityType}
             onValueChange={(value) => setEntityType(value as EntityType)}
@@ -308,14 +250,14 @@ export const ManagementPage: React.FC = () => {
           </Tabs>
 
           <div>
-            <div style={{ marginBottom: '15px', textAlign: 'right' }}>
+            <div className="mb-4 text-right">
               <Button variant="primary" size="lg" onClick={() => setIsCreateModalOpen(true)}>
                 새로 만들기
               </Button>
             </div>
 
             {showSuccessAlert && (
-              <div style={{ marginBottom: '10px' }}>
+              <div className="mb-2.5">
                 <Alert variant="success" title="성공" onClose={() => setShowSuccessAlert(false)}>
                   {alertMessage}
                 </Alert>
@@ -323,7 +265,7 @@ export const ManagementPage: React.FC = () => {
             )}
 
             {showErrorAlert && (
-              <div style={{ marginBottom: '10px' }}>
+              <div className="mb-2.5">
                 <Alert variant="error" title="오류" onClose={() => setShowErrorAlert(false)}>
                   {errorMessage}
                 </Alert>
@@ -367,12 +309,10 @@ export const ManagementPage: React.FC = () => {
               </Card>
             </div>
 
-            <div style={{ border: '1px solid #ddd', background: 'white', overflow: 'auto' }}>
+            <div className="overflow-auto border border-gray-200 bg-white">
               <DataTable
                 data={data}
                 columns={entityType === 'user' ? userColumns : postColumns}
-                searchable
-                sortable
                 pageSize={10}
                 actions={{
                   onEdit: handleEdit,
@@ -438,7 +378,7 @@ export const ManagementPage: React.FC = () => {
                 width="full"
                 fieldType="email"
               />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="grid grid-cols-2 gap-4">
                 <FormSelect
                   name="role"
                   value={formData.role || 'user'}
@@ -477,7 +417,7 @@ export const ManagementPage: React.FC = () => {
                 width="full"
                 fieldType="postTitle"
               />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="grid grid-cols-2 gap-4">
                 <FormInput
                   name="author"
                   value={formData.author || ''}
@@ -574,7 +514,7 @@ export const ManagementPage: React.FC = () => {
                 width="full"
                 fieldType="email"
               />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="grid grid-cols-2 gap-4">
                 <FormSelect
                   name="role"
                   value={formData.role || 'user'}
@@ -613,7 +553,7 @@ export const ManagementPage: React.FC = () => {
                 width="full"
                 fieldType="postTitle"
               />
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="grid grid-cols-2 gap-4">
                 <FormInput
                   name="author"
                   value={formData.author || ''}

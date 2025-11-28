@@ -1,10 +1,10 @@
 import React from 'react'
-import { Header } from './components/ui/Header'
+import { Header } from './components/layout/header'
 import { ManagementPage } from './pages/ManagementPage'
 
 export const App: React.FC = () => {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f7fafc' }}>
+    <div className="min-h-screen bg-muted">
       <Header />
       <main>
         <ManagementPage />
