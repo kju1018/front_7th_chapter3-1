@@ -17,29 +17,15 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
             L
           </div>
           <div>
-            <h1 className="text-lg font-bold leading-none text-foreground">
-              Hanghae Company
-            </h1>
+            <h1 className="text-lg font-bold leading-none text-foreground">Hanghae Company</h1>
             <p className="mt-[2px] text-[11px] leading-none text-muted-foreground">
               Design System Migration Project
             </p>
           </div>
         </div>
 
-
         {/* User Info + Theme Toggle */}
         <div className="flex items-center gap-3">
-          <div className="text-right">
-            <div className="text-sm font-semibold text-foreground">
-              Demo User
-            </div>
-            <div className="text-xs text-muted-foreground">
-              demo@example.com
-            </div>
-          </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
-            DU
-          </div>
           <Button
             type="button"
             variant="ghost"
@@ -50,6 +36,13 @@ export const Header: React.FC<HeaderProps> = ({ isDark, onToggleTheme }) => {
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </Button>
+          <div className="text-right">
+            <div className="text-sm font-semibold text-foreground">Demo User</div>
+            <div className="text-xs text-muted-foreground">demo@example.com</div>
+          </div>
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-base font-semibold text-primary">
+            DU
+          </div>
         </div>
       </div>
     </header>

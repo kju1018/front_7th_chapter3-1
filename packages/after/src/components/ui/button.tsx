@@ -14,6 +14,8 @@ const buttonVariants = cva(
           'bg-danger text-white hover:bg-danger/90 focus-visible:ring-danger/20 dark:focus-visible:ring-danger/40 dark:bg-danger/60',
         secondary:
           'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
+        ghost:
+          'hover:bg-accent hover:text-accent-foreground text-foreground bg-transparent',
         success:
           'bg-emerald-500 text-white hover:bg-emerald-600 focus-visible:ring-emerald-500/30 dark:bg-emerald-600 dark:hover:bg-emerald-500/80',
       },
