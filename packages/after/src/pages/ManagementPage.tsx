@@ -4,7 +4,8 @@ import { Tabs, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { Card, CardContent } from '../components/ui/card';
 import { cva } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { Alert, Modal } from '../components/organisms';
+import { Alert } from '../components/organisms';
+import { Modal } from '../components/Modal';
 import { FormInput, FormSelect, FormTextarea } from '../components/molecules';
 import { userService } from '../services/userService';
 import { postService } from '../services/postService';
@@ -231,7 +232,7 @@ export const ManagementPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-muted/50">
-      <div className="mx-auto max-w-screen-xl p-5">
+      <div className="mx-auto max-w-7xl p-5">
         <div className="mb-5">
           <h1 className="mb-1 text-2xl font-bold text-gray-800">관리 시스템</h1>
           <p className="text-sm text-gray-600">사용자와 게시글을 관리하세요</p>
