@@ -1,4 +1,7 @@
 import React from 'react';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { cn } from '@/lib/utils';
 
 interface FormInputProps {
   name: string;
@@ -31,19 +34,23 @@ export const FormInput: React.FC<FormInputProps> = ({
     onChange(e.target.value);
   };
 
-  const inputClasses = ['form-input', error && 'error', `input-width-${width}`].filter(Boolean).join(' ');
-  const helperClasses = ['form-helper-text', error && 'error'].filter(Boolean).join(' ');
+  const widthClasses = {
+    small: 'max-w-xs',
+    medium: 'max-w-md',
+    large: 'max-w-lg',
+    full: 'w-full',
+  };
 
   return (
-    <div className="form-group">
+    <div className={cn('flex flex-col gap-2', widthClasses[width])}>
       {label && (
-        <label htmlFor={name} className="form-label">
+        <Label htmlFor={name}>
           {label}
-          {required && <span style={{ color: '#d32f2f' }}>*</span>}
-        </label>
+          {required && <span className="text-destructive">*</span>}
+        </Label>
       )}
 
-      <input
+      <Input
         id={name}
         name={name}
         type={type}
@@ -52,11 +59,16 @@ export const FormInput: React.FC<FormInputProps> = ({
         placeholder={placeholder}
         required={required}
         disabled={disabled}
-        className={inputClasses}
+        aria-invalid={error ? 'true' : 'false'}
+        className={cn(error && 'border-destructive')}
       />
 
-      {error && <span className={helperClasses}>{error}</span>}
-      {helpText && !error && <span className="form-helper-text">{helpText}</span>}
+      {error && (
+        <p className="text-sm text-destructive">{error}</p>
+      )}
+      {helpText && !error && (
+        <p className="text-sm text-muted-foreground">{helpText}</p>
+      )}
     </div>
   );
 };

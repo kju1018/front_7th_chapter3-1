@@ -48,7 +48,7 @@ export const PostModalEdit: React.FC<PostModalEditProps> = ({
         </>
       }
     >
-      <div>
+      <div className="flex flex-col gap-6">
         {selectedItem && (
           <Alert variant="info">
             ID: {selectedItem.id} | 생성일: {selectedItem.createdAt} | 조회수: {selectedItem.views}
@@ -65,7 +65,7 @@ export const PostModalEdit: React.FC<PostModalEditProps> = ({
           width="full"
           fieldType="postTitle"
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div className="grid grid-cols-2 gap-4">
           <FormInput
             name="author"
             value={formData.author || ''}

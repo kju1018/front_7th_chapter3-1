@@ -1,4 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+} from '../ui/dialog';
+import { cn } from '@/lib/utils';
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,41 +27,27 @@ export const Modal: React.FC<ModalProps> = ({
   showFooter = false,
   footerContent,
 }) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  const modalClasses = ['modal-content', `modal-${size}`].join(' ');
+  const sizeClasses = {
+    small: 'sm:max-w-sm',
+    medium: 'sm:max-w-lg',
+    large: 'sm:max-w-2xl',
+  };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className={modalClasses} onClick={(e) => e.stopPropagation()}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className={cn(sizeClasses[size])}>
         {title && (
-          <div className="modal-header">
-            <h3 className="modal-title">{title}</h3>
-            <button className="modal-close" onClick={onClose}>
-              ×
-            </button>
-          </div>
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+          </DialogHeader>
         )}
-        <div className="modal-body">
-          {children}
-        </div>
+
+        <div>{children}</div>
+
         {showFooter && footerContent && (
-          <div className="modal-footer">
-            {footerContent}
-          </div>
+          <DialogFooter>{footerContent}</DialogFooter>
         )}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };

@@ -46,7 +46,7 @@ export const UserModalEdit: React.FC<UserModalEditProps> = ({
         </>
       }
     >
-      <div>
+      <div className="flex flex-col gap-6">
         {selectedItem && (
           <Alert variant="info">
             ID: {selectedItem.id} | 생성일: {selectedItem.createdAt}
@@ -74,7 +74,7 @@ export const UserModalEdit: React.FC<UserModalEditProps> = ({
           width="full"
           fieldType="email"
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div className="grid grid-cols-2 gap-4">
           <FormSelect
             name="role"
             value={formData.role || 'user'}

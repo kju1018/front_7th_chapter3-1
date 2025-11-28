@@ -1,6 +1,14 @@
 import React from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import { Label } from '../ui/label';
+import { cn } from '@/lib/utils';
 
-// Select Component - Inconsistent with Input component
 interface Option {
   value: string;
   label: string;
@@ -33,39 +41,50 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   helpText,
   size = 'md',
 }) => {
-  void size; // Keep for API consistency but not used in rendering
-  const selectClasses = ['form-select', error && 'error'].filter(Boolean).join(' ');
-  const helperClasses = ['form-helper-text', error && 'error'].filter(Boolean).join(' ');
+  const sizeMap = {
+    sm: 'sm' as const,
+    md: 'default' as const,
+    lg: 'default' as const,
+  };
 
   return (
-    <div className="form-group">
+    <div className="flex flex-col gap-2">
       {label && (
-        <label className="form-label">
+        <Label htmlFor={name}>
           {label}
-          {required && <span style={{ color: '#d32f2f' }}>*</span>}
-        </label>
+          {required && <span className="text-destructive">*</span>}
+        </Label>
       )}
 
-      <select
-        name={name}
+      <Select
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        required={required}
+        onValueChange={onChange}
         disabled={disabled}
-        className={selectClasses}
+        required={required}
       >
-        <option value="" disabled>
-          {placeholder}
-        </option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        <SelectTrigger
+          id={name}
+          size={sizeMap[size]}
+          aria-invalid={error ? 'true' : 'false'}
+          className={cn('w-full', error && 'border-destructive')}
+        >
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-      {error && <span className={helperClasses}>{error}</span>}
-      {helpText && !error && <span className="form-helper-text">{helpText}</span>}
+      {error && (
+        <p className="text-sm text-destructive">{error}</p>
+      )}
+      {helpText && !error && (
+        <p className="text-sm text-muted-foreground">{helpText}</p>
+      )}
     </div>
   );
 };

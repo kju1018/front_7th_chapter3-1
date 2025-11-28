@@ -44,7 +44,7 @@ export const PostModalCreate: React.FC<PostModalCreateProps> = ({
         </>
       }
     >
-      <div>
+      <div className="flex flex-col gap-6">
         <PostFormInput
           name="title"
           value={formData.title || ''}
@@ -55,7 +55,7 @@ export const PostModalCreate: React.FC<PostModalCreateProps> = ({
           width="full"
           fieldType="postTitle"
         />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div className="grid grid-cols-2 gap-4">
           <FormInput
             name="author"
             value={formData.author || ''}
