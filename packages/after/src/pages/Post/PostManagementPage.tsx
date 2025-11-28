@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/atoms';
-import { Alert, Table } from '@/components/organisms';
+import { Alert } from '@/components/organisms';
+import { PostTable } from './PostTable';
 import { postService } from '@/services/postService.ts';
 import type { Post } from '@/services/postService.ts';
 import '../../styles/components.css';
@@ -132,19 +133,6 @@ export const PostManagementPage: React.FC = () => {
     };
   };
 
-  const renderTableColumns = () => {
-    return [
-      { key: 'id', header: 'ID', width: '60px' },
-      { key: 'title', header: '제목' },
-      { key: 'author', header: '작성자', width: '120px' },
-      { key: 'category', header: '카테고리', width: '140px' },
-      { key: 'status', header: '상태', width: '120px' },
-      { key: 'views', header: '조회수', width: '100px' },
-      { key: 'createdAt', header: '작성일', width: '120px' },
-      { key: 'actions', header: '관리', width: '250px' },
-    ];
-  };
-
   const stats = getStats();
 
   return (
@@ -237,12 +225,10 @@ export const PostManagementPage: React.FC = () => {
       </div>
 
       <div style={{ border: '1px solid #ddd', background: 'white', overflow: 'auto' }}>
-        <Table
-          columns={renderTableColumns()}
+        <PostTable
           data={data}
           striped
           hover
-          entityType="post"
           onEdit={handleEdit}
           onDelete={handleDelete}
           onPublish={(id) => handleStatusAction(id, 'publish')}

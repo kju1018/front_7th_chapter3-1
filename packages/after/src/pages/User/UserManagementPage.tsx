@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/atoms';
-import { Alert, Table } from '@/components/organisms';
+import { Alert } from '@/components/organisms';
+import { UserTable } from './UserTable';
 import { userService } from '@/services/userService.ts';
 import type { User } from '@/services/userService.ts';
 import '../../styles/components.css';
@@ -107,19 +108,6 @@ export const UserManagementPage: React.FC = () => {
     };
   };
 
-  const renderTableColumns = () => {
-    return [
-      { key: 'id', header: 'ID', width: '60px' },
-      { key: 'username', header: '사용자명', width: '150px' },
-      { key: 'email', header: '이메일' },
-      { key: 'role', header: '역할', width: '120px' },
-      { key: 'status', header: '상태', width: '120px' },
-      { key: 'createdAt', header: '생성일', width: '120px' },
-      { key: 'lastLogin', header: '마지막 로그인', width: '140px' },
-      { key: 'actions', header: '관리', width: '200px' },
-    ];
-  };
-
   const stats = getStats();
 
   return (
@@ -212,17 +200,12 @@ export const UserManagementPage: React.FC = () => {
       </div>
 
       <div style={{ border: '1px solid #ddd', background: 'white', overflow: 'auto' }}>
-        <Table
-          columns={renderTableColumns()}
+        <UserTable
           data={data}
           striped
           hover
-          entityType="user"
           onEdit={handleEdit}
           onDelete={handleDelete}
-          onPublish={() => {}}
-          onArchive={() => {}}
-          onRestore={() => {}}
         />
       </div>
 

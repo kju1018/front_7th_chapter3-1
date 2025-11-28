@@ -2,7 +2,8 @@ import React from 'react';
 import { Modal } from '@/components/organisms';
 import { Button } from '@/components/atoms';
 import { Alert } from '@/components/organisms';
-import { FormInput, FormSelect } from '@/components/molecules';
+import { FormSelect } from '@/components/molecules';
+import { UserFormInput } from './UserFormInput';
 import type { User } from '@/services/userService.ts';
 
 interface UserModalEditProps {
@@ -52,7 +53,7 @@ export const UserModalEdit: React.FC<UserModalEditProps> = ({
           </Alert>
         )}
 
-        <FormInput
+        <UserFormInput
           name="username"
           value={formData.username || ''}
           onChange={(value) => setFormData({ ...formData, username: value })}
@@ -62,7 +63,7 @@ export const UserModalEdit: React.FC<UserModalEditProps> = ({
           width="full"
           fieldType="username"
         />
-        <FormInput
+        <UserFormInput
           name="email"
           value={formData.email || ''}
           onChange={(value) => setFormData({ ...formData, email: value })}

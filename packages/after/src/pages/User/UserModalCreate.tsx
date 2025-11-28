@@ -1,7 +1,8 @@
 import React from 'react';
 import { Modal } from '@/components/organisms';
 import { Button } from '@/components/atoms';
-import { FormInput, FormSelect } from '@/components/molecules';
+import { FormSelect } from '@/components/molecules';
+import { UserFormInput } from './UserFormInput';
 
 interface UserModalCreateProps {
   isOpen: boolean;
@@ -42,7 +43,7 @@ export const UserModalCreate: React.FC<UserModalCreateProps> = ({
       }
     >
       <div>
-        <FormInput
+        <UserFormInput
           name="username"
           value={formData.username || ''}
           onChange={(value) => setFormData({ ...formData, username: value })}
@@ -52,7 +53,7 @@ export const UserModalCreate: React.FC<UserModalCreateProps> = ({
           width="full"
           fieldType="username"
         />
-        <FormInput
+        <UserFormInput
           name="email"
           value={formData.email || ''}
           onChange={(value) => setFormData({ ...formData, email: value })}

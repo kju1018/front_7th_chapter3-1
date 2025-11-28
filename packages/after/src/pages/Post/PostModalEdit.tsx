@@ -3,6 +3,7 @@ import { Modal } from '@/components/organisms';
 import { Button } from '@/components/atoms';
 import { Alert } from '@/components/organisms';
 import { FormInput, FormSelect, FormTextarea } from '@/components/molecules';
+import { PostFormInput } from './PostFormInput';
 import type { Post } from '@/services/postService.ts';
 
 interface PostModalEditProps {
@@ -52,7 +53,7 @@ export const PostModalEdit: React.FC<PostModalEditProps> = ({
           </Alert>
         )}
 
-        <FormInput
+        <PostFormInput
           name="title"
           value={formData.title || ''}
           onChange={(value) => setFormData({ ...formData, title: value })}
