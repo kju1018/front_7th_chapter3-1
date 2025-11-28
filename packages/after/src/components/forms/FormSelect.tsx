@@ -5,8 +5,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import { Label } from '../ui/label';
+} from '../ui/Select';
+import { Label } from '../ui/Label';
 import { cn } from '@/lib/utils';
 
 interface Option {

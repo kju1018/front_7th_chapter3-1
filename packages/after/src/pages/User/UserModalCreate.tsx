@@ -1,7 +1,7 @@
 import React from 'react';
-import { Modal } from '@/components/organisms/Modal';
-import { Button } from '@/components/atoms/Button';
-import { FormSelect } from '@/components/molecules/FormSelect';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
+import { FormSelect } from '@/components/forms/FormSelect';
 import { UserFormInput } from './UserFormInput';
 
 interface UserModalCreateProps {

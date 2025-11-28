@@ -1,5 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -23,18 +24,42 @@ const alertVariants = cva(
   }
 )
 
+interface AlertProps extends React.ComponentProps<"div">, VariantProps<typeof alertVariants> {
+  title?: string;
+  onClose?: () => void;
+}
+
 function Alert({
   className,
   variant,
+  title,
+  onClose,
+  children,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
+}: AlertProps) {
   return (
     <div
       data-slot="alert"
       role="alert"
-      className={cn(alertVariants({ variant }), className)}
+      className={cn(alertVariants({ variant }), onClose && "pr-10", className)}
       {...props}
-    />
+    >
+      {title && <AlertTitle>{title}</AlertTitle>}
+      {typeof children === 'string' ? (
+        <AlertDescription>{children}</AlertDescription>
+      ) : (
+        children
+      )}
+      {onClose && (
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2"
+          aria-label="Close"
+        >
+          <XIcon className="h-4 w-4" />
+        </button>
+      )}
+    </div>
   )
 }
 

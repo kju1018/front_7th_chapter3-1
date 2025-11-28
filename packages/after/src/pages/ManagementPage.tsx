@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserManagementPage } from './User/UserManagementPage.tsx';
 import { PostManagementPage } from './Post/PostManagementPage.tsx';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs';
 
 export const ManagementPage: React.FC = () => {
   return (

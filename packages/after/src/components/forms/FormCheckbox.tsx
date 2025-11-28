@@ -1,6 +1,6 @@
 import React from 'react';
-import { Checkbox } from '../ui/checkbox';
-import { Label } from '../ui/label';
+import { Checkbox } from '../ui/Checkbox';
+import { Label } from '../ui/Label';
 
 interface FormCheckboxProps {
   name: string;

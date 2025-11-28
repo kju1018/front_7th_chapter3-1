@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/atoms/Button';
-import { Alert } from '@/components/organisms/Alert';
+import { Button } from '@/components/ui/Button';
+import { Alert } from '@/components/ui/Alert';
 import { PostTable } from './PostTable';
 import { postService } from '@/services/postService.ts';
 import type { Post } from '@/services/postService.ts';

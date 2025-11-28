@@ -1,7 +1,7 @@
 import React from 'react';
-import { Table, type Column } from '../../components/organisms/Table';
-import { Button } from '@/components/atoms/Button';
-import { Badge } from '@/components/atoms/Badge';
+import { DataTable, type Column } from '@/components/ui/DataTable';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 import { PostStatusBadge } from './PostStatusBadge';
 import type { Post } from '@/services/postService.ts';
 
@@ -41,12 +41,12 @@ export const PostTable: React.FC<PostTableProps> = ({
     const value = row[columnKey as keyof Post];
 
     if (columnKey === 'category') {
-      const type =
+      const variant =
         value === 'development' ? 'primary' :
         value === 'design' ? 'info' :
         value === 'accessibility' ? 'danger' :
         'secondary';
-      return <Badge type={type} pill>{String(value)}</Badge>;
+      return <Badge variant={variant}>{String(value)}</Badge>;
     }
 
     if (columnKey === 'status') {
@@ -105,7 +105,7 @@ export const PostTable: React.FC<PostTableProps> = ({
   };
 
   return (
-    <Table
+    <DataTable
       columns={POST_TABLE_COLUMNS}
       data={data}
       striped={striped}

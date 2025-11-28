@@ -1,48 +1,35 @@
 import React from 'react';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
+import { Textarea } from '../ui/Textarea';
+import { Label } from '../ui/Label';
 import { cn } from '@/lib/utils';
 
-interface FormInputProps {
+interface FormTextareaProps {
   name: string;
   value: string;
   onChange: (value: string) => void;
   label?: string;
-  type?: 'text' | 'email' | 'password' | 'number' | 'url';
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
   error?: string;
   helpText?: string;
-  width?: 'small' | 'medium' | 'large' | 'full';
+  rows?: number;
 }
 
-export const FormInput: React.FC<FormInputProps> = ({
+export const FormTextarea: React.FC<FormTextareaProps> = ({
   name,
   value,
   onChange,
   label,
-  type = 'text',
   placeholder,
   required = false,
   disabled = false,
   error,
   helpText,
-  width = 'full',
+  rows = 4,
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-
-  const widthClasses = {
-    small: 'max-w-xs',
-    medium: 'max-w-md',
-    large: 'max-w-lg',
-    full: 'w-full',
-  };
-
   return (
-    <div className={cn('flex flex-col gap-2', widthClasses[width])}>
+    <div className="flex flex-col gap-2">
       {label && (
         <Label htmlFor={name}>
           {label}
@@ -50,15 +37,15 @@ export const FormInput: React.FC<FormInputProps> = ({
         </Label>
       )}
 
-      <Input
+      <Textarea
         id={name}
         name={name}
-        type={type}
         value={value}
-        onChange={handleChange}
+        onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         required={required}
         disabled={disabled}
+        rows={rows}
         aria-invalid={error ? 'true' : 'false'}
         className={cn(error && 'border-destructive')}
       />

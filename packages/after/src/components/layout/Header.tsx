@@ -1,6 +1,6 @@
 import React from 'react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback } from '@/components/ui/Avatar';
+import { Button } from '@/components/ui/Button';
 import { useTheme } from '@/app/providers/ThemeProvider';
 
 export const Header: React.FC = () => {

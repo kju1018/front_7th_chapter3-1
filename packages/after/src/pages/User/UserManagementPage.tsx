@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/atoms/Button';
-import { Alert } from '@/components/organisms/Alert';
+import { Button } from '@/components/ui/Button';
+import { Alert } from '@/components/ui/Alert';
 import { UserTable } from './UserTable';
 import { userService } from '@/services/userService.ts';
 import type { User } from '@/services/userService.ts';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Table, type Column } from '../../components/organisms/Table';
-import { Button } from '@/components/atoms/Button';
+import { DataTable, type Column } from '@/components/ui/DataTable';
+import { Button } from '@/components/ui/Button';
 import { UserRoleBadge } from './UserRoleBadge';
 import { UserStatusBadge } from './UserStatusBadge';
 import type { User } from '@/services/userService.ts';
@@ -67,7 +67,7 @@ export const UserTable: React.FC<UserTableProps> = ({
   };
 
   return (
-    <Table
+    <DataTable
       columns={USER_TABLE_COLUMNS}
       data={data}
       striped={striped}

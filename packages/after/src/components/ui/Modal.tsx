@@ -3,10 +3,9 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogFooter,
   DialogTitle,
-} from '../ui/dialog';
-import { cn } from '@/lib/utils';
+  DialogFooter,
+} from './Dialog';
 
 interface ModalProps {
   isOpen: boolean;
@@ -27,23 +26,21 @@ export const Modal: React.FC<ModalProps> = ({
   showFooter = false,
   footerContent,
 }) => {
-  const sizeClasses = {
-    small: 'sm:max-w-sm',
+  const sizeClass = {
+    small: 'sm:max-w-md',
     medium: 'sm:max-w-lg',
     large: 'sm:max-w-2xl',
-  };
+  }[size];
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className={cn(sizeClasses[size])}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className={sizeClass}>
         {title && (
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
           </DialogHeader>
         )}
-
-        <div>{children}</div>
-
+        <div className="py-4">{children}</div>
         {showFooter && footerContent && (
           <DialogFooter>{footerContent}</DialogFooter>
         )}
