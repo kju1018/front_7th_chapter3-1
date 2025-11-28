@@ -4,7 +4,6 @@ import { Alert } from '@/components/organisms/Alert';
 import { PostTable } from './PostTable';
 import { postService } from '@/services/postService.ts';
 import type { Post } from '@/services/postService.ts';
-import '../../styles/components.css';
 import {PostModalCreate} from "@/pages/Post/PostModalCreate.tsx"
 import {PostModalEdit} from "@/pages/Post/PostModalEdit.tsx"
 
@@ -136,15 +135,21 @@ export const PostManagementPage: React.FC = () => {
   const stats = getStats();
 
   return (
-    <div>
-      <div style={{ marginBottom: '15px', textAlign: 'right' }}>
+    <div className="p-6">
+      {/* Header with Create Button */}
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-semibold text-slate-900">게시글 관리</h2>
+          <p className="mt-1 text-sm text-slate-500">게시글을 작성, 수정, 삭제하고 상태를 관리할 수 있습니다</p>
+        </div>
         <Button variant="primary" size="md" onClick={() => setIsCreateModalOpen(true)}>
           새로 만들기
         </Button>
       </div>
 
+      {/* Alerts */}
       {showSuccessAlert && (
-        <div style={{ marginBottom: '10px' }}>
+        <div className="mb-4">
           <Alert
             variant="success"
             title="성공"
@@ -156,7 +161,7 @@ export const PostManagementPage: React.FC = () => {
       )}
 
       {showErrorAlert && (
-        <div style={{ marginBottom: '10px' }}>
+        <div className="mb-4">
           <Alert
             variant="error"
             title="오류"
@@ -167,64 +172,36 @@ export const PostManagementPage: React.FC = () => {
         </div>
       )}
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-        gap: '10px',
-        marginBottom: '15px'
-      }}>
-        <div style={{
-          padding: '12px 15px',
-          background: '#e3f2fd',
-          border: '1px solid #90caf9',
-          borderRadius: '3px'
-        }}>
-          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>전체</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#1976d2' }}>{stats.total}</div>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <div className="text-xs font-medium text-slate-600 mb-1">전체</div>
+          <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
         </div>
 
-        <div style={{
-          padding: '12px 15px',
-          background: '#e8f5e9',
-          border: '1px solid #81c784',
-          borderRadius: '3px'
-        }}>
-          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>{stats.stat1.label}</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#388e3c' }}>{stats.stat1.value}</div>
+        <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat1.label}</div>
+          <div className="text-2xl font-bold text-green-600">{stats.stat1.value}</div>
         </div>
 
-        <div style={{
-          padding: '12px 15px',
-          background: '#fff3e0',
-          border: '1px solid #ffb74d',
-          borderRadius: '3px'
-        }}>
-          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>{stats.stat2.label}</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#f57c00' }}>{stats.stat2.value}</div>
+        <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
+          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat2.label}</div>
+          <div className="text-2xl font-bold text-orange-600">{stats.stat2.value}</div>
         </div>
 
-        <div style={{
-          padding: '12px 15px',
-          background: '#ffebee',
-          border: '1px solid #e57373',
-          borderRadius: '3px'
-        }}>
-          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>{stats.stat3.label}</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#d32f2f' }}>{stats.stat3.value}</div>
+        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat3.label}</div>
+          <div className="text-2xl font-bold text-slate-700">{stats.stat3.value}</div>
         </div>
 
-        <div style={{
-          padding: '12px 15px',
-          background: '#f5f5f5',
-          border: '1px solid #bdbdbd',
-          borderRadius: '3px'
-        }}>
-          <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>{stats.stat4.label}</div>
-          <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#424242' }}>{stats.stat4.value}</div>
+        <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
+          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat4.label}</div>
+          <div className="text-2xl font-bold text-purple-600">{stats.stat4.value}</div>
         </div>
       </div>
 
-      <div style={{ border: '1px solid #ddd', background: 'white', overflow: 'auto' }}>
+      {/* Table */}
+      <div className="overflow-hidden rounded-lg border">
         <PostTable
           data={data}
           striped
@@ -237,6 +214,7 @@ export const PostManagementPage: React.FC = () => {
         />
       </div>
 
+      {/* Modals */}
       <PostModalCreate
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}

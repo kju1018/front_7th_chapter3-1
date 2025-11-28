@@ -1,77 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { UserManagementPage } from './User/UserManagementPage.tsx';
 import { PostManagementPage } from './Post/PostManagementPage.tsx';
-import '../styles/components.css';
-
-type EntityType = 'user' | 'post';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 export const ManagementPage: React.FC = () => {
-  const [entityType, setEntityType] = useState<EntityType>('post');
-
   return (
-    <div style={{ minHeight: '100vh', background: '#f0f0f0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <h1 style={{
-            fontSize: '24px',
-            fontWeight: 'bold',
-            marginBottom: '5px',
-            color: '#333'
-          }}>
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 tracking-tight">
             관리 시스템
           </h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>
-            사용자와 게시글을 관리하세요
+          <p className="mt-2 text-sm text-slate-600">
+            사용자와 게시글을 효율적으로 관리하세요
           </p>
         </div>
 
-        <div style={{
-          background: 'white',
-          border: '1px solid #ddd',
-          padding: '10px'
-        }}>
-          <div style={{
-            marginBottom: '15px',
-            borderBottom: '2px solid #ccc',
-            paddingBottom: '5px'
-          }}>
-            <button
-              onClick={() => setEntityType('post')}
-              style={{
-                padding: '8px 16px',
-                marginRight: '5px',
-                fontSize: '14px',
-                fontWeight: entityType === 'post' ? 'bold' : 'normal',
-                border: '1px solid #999',
-                background: entityType === 'post' ? '#1976d2' : '#f5f5f5',
-                color: entityType === 'post' ? 'white' : '#333',
-                cursor: 'pointer',
-                borderRadius: '3px'
-              }}
-            >
-              게시글
-            </button>
-            <button
-              onClick={() => setEntityType('user')}
-              style={{
-                padding: '8px 16px',
-                fontSize: '14px',
-                fontWeight: entityType === 'user' ? 'bold' : 'normal',
-                border: '1px solid #999',
-                background: entityType === 'user' ? '#1976d2' : '#f5f5f5',
-                color: entityType === 'user' ? 'white' : '#333',
-                cursor: 'pointer',
-                borderRadius: '3px'
-              }}
-            >
-              사용자
-            </button>
-          </div>
+        {/* Tabs Section */}
+        <Tabs defaultValue="post" className="w-full">
+          <TabsList className="mb-6">
+            <TabsTrigger value="post" className="min-w-[120px]">
+              게시글 관리
+            </TabsTrigger>
+            <TabsTrigger value="user" className="min-w-[120px]">
+              사용자 관리
+            </TabsTrigger>
+          </TabsList>
 
-          <div>
-            {entityType === 'user' ? <UserManagementPage /> : <PostManagementPage />}
-          </div>
-        </div>
+          <TabsContent value="post" className="mt-0">
+            <div className="rounded-lg border bg-white shadow-sm">
+              <PostManagementPage />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="user" className="mt-0">
+            <div className="rounded-lg border bg-white shadow-sm">
+              <UserManagementPage />
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

@@ -13,8 +13,8 @@ describe('ManagementPage - Tab Navigation', () => {
     render(<ManagementPage />);
 
     // 게시글 탭이 기본으로 활성화되어 있는지 확인
-    const postTab = screen.getByRole('button', { name: '게시글' });
-    const userTab = screen.getByRole('button', { name: '사용자' });
+    const postTab = screen.getByRole('tab', { name: '게시글 관리' });
+    const userTab = screen.getByRole('tab', { name: '사용자 관리' });
 
     expect(postTab).toBeInTheDocument();
     expect(userTab).toBeInTheDocument();
@@ -40,6 +40,6 @@ describe('ManagementPage - Tab Navigation', () => {
     render(<ManagementPage />);
 
     expect(screen.getByText('관리 시스템')).toBeInTheDocument();
-    expect(screen.getByText('사용자와 게시글을 관리하세요')).toBeInTheDocument();
+    expect(screen.getByText('사용자와 게시글을 효율적으로 관리하세요')).toBeInTheDocument();
   });
 });
