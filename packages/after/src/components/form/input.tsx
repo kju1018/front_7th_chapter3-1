@@ -1,5 +1,4 @@
 // components/form/input.tsx
-import type React from "react";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";

@@ -77,6 +77,7 @@ export function UserForm({
         label="사용자명"
         placeholder="사용자명을 입력하세요"
         error={errors.username?.message}
+        required={true}
         {...register("username")}
       />
 
@@ -84,12 +85,13 @@ export function UserForm({
         label="이메일"
         placeholder="이메일을 입력하세요"
         error={errors.email?.message}
+        required={true}
         {...register("email")}
       />
 
       <FormSelect
-        label="권한"
-        placeholder="권한 선택"
+        label="역할"
+        placeholder="역할 선택"
         size="md"
         options={[
           { value: "admin", label: "관리자" },

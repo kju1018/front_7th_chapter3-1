@@ -4,7 +4,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FormInput } from "@/components/form/input";
-import { FormTextarea } from "@/components/molecules";
+import { FormTextarea } from "@/components/form/textarea";
 import { FormSelect } from "@/components/form/select";
 import { Button } from "@/components/ui/button";
 
@@ -63,6 +63,7 @@ export function PostForm({
         label="제목"
         placeholder="게시글 제목을 입력하세요"
         error={errors.title?.message}
+        required={true}
         {...register("title")}
       />
 
@@ -71,6 +72,7 @@ export function PostForm({
           label="작성자"
           placeholder="작성자명"
           error={errors.author?.message}
+          required={true}
           {...register("author")}
         />
 
