@@ -114,8 +114,8 @@ export const UserManagementPage: React.FC = () => {
       {/* Header with Create Button */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900">사용자 관리</h2>
-          <p className="mt-1 text-sm text-slate-500">사용자 계정을 생성, 수정, 삭제할 수 있습니다</p>
+          <h2 className="text-2xl font-semibold text-foreground">사용자 관리</h2>
+          <p className="mt-1 text-sm text-muted-foreground">사용자 계정을 생성, 수정, 삭제할 수 있습니다</p>
         </div>
         <Button variant="primary" size="md" onClick={() => setIsCreateModalOpen(true)}>
           새로 만들기
@@ -149,29 +149,29 @@ export const UserManagementPage: React.FC = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 gap-4 mb-6 sm:grid-cols-3 lg:grid-cols-5">
-        <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-          <div className="text-xs font-medium text-slate-600 mb-1">전체</div>
-          <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
+        <div className="rounded-lg border border-stats-total/20 bg-stats-total/10 p-4">
+          <div className="text-xs font-medium text-muted-foreground mb-1">전체</div>
+          <div className="text-2xl font-bold text-stats-total">{stats.total}</div>
         </div>
 
-        <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat1.label}</div>
-          <div className="text-2xl font-bold text-green-600">{stats.stat1.value}</div>
+        <div className="rounded-lg border border-stats-active/20 bg-stats-active/10 p-4">
+          <div className="text-xs font-medium text-muted-foreground mb-1">{stats.stat1.label}</div>
+          <div className="text-2xl font-bold text-stats-active">{stats.stat1.value}</div>
         </div>
 
-        <div className="rounded-lg border border-orange-200 bg-orange-50 p-4">
-          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat2.label}</div>
-          <div className="text-2xl font-bold text-orange-600">{stats.stat2.value}</div>
+        <div className="rounded-lg border border-stats-inactive/20 bg-stats-inactive/10 p-4">
+          <div className="text-xs font-medium text-muted-foreground mb-1">{stats.stat2.label}</div>
+          <div className="text-2xl font-bold text-stats-inactive">{stats.stat2.value}</div>
         </div>
 
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4">
-          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat3.label}</div>
-          <div className="text-2xl font-bold text-red-600">{stats.stat3.value}</div>
+        <div className="rounded-lg border border-stats-suspended/20 bg-stats-suspended/10 p-4">
+          <div className="text-xs font-medium text-muted-foreground mb-1">{stats.stat3.label}</div>
+          <div className="text-2xl font-bold text-stats-suspended">{stats.stat3.value}</div>
         </div>
 
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-          <div className="text-xs font-medium text-slate-600 mb-1">{stats.stat4.label}</div>
-          <div className="text-2xl font-bold text-slate-700">{stats.stat4.value}</div>
+        <div className="rounded-lg border border-stats-admin/20 bg-stats-admin/10 p-4">
+          <div className="text-xs font-medium text-muted-foreground mb-1">{stats.stat4.label}</div>
+          <div className="text-2xl font-bold text-stats-admin">{stats.stat4.value}</div>
         </div>
       </div>
 

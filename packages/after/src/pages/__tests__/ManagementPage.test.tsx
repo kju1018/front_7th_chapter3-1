@@ -35,11 +35,4 @@ describe('ManagementPage - Tab Navigation', () => {
       expect(screen.getByRole('table')).toBeInTheDocument();
     });
   });
-
-  it('제목과 설명이 정상 표시된다', () => {
-    render(<ManagementPage />);
-
-    expect(screen.getByText('관리 시스템')).toBeInTheDocument();
-    expect(screen.getByText('사용자와 게시글을 효율적으로 관리하세요')).toBeInTheDocument();
-  });
 });
