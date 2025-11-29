@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react-vite'
 import { withThemeByClassName } from '@storybook/addon-themes'
 
 // Import global CSS (TailwindCSS)
-import '../src/styles/globals.css'
+import '../src/globals.css'
 
 const preview: Preview = {
   parameters: {
