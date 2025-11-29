@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Alert';
 import { PostTable } from './PostTable';
 import { postService } from '@/services/postService.ts';
-import type { Post } from '@/services/postService.ts';
+import type { Post, PostInput } from '@/services/postService.ts';
 import {PostModalCreate} from "@/pages/Post/PostModalCreate.tsx"
 import {PostModalEdit} from "@/pages/Post/PostModalEdit.tsx"
 
@@ -17,7 +17,7 @@ export const PostManagementPage: React.FC = () => {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<Partial<PostInput>>({});
 
   useEffect(() => {
     loadData();
@@ -27,7 +27,7 @@ export const PostManagementPage: React.FC = () => {
     try {
       const result = await postService.getAll();
       setData(result);
-    } catch (error: any) {
+    } catch {
       setErrorMessage('데이터를 불러오는데 실패했습니다');
       setShowErrorAlert(true);
     }
@@ -36,10 +36,10 @@ export const PostManagementPage: React.FC = () => {
   const handleCreate = async () => {
     try {
       await postService.create({
-        title: formData.title,
+        title: formData.title!,
         content: formData.content || '',
-        author: formData.author,
-        category: formData.category,
+        author: formData.author!,
+        category: formData.category!,
         status: formData.status || 'draft',
       });
 
@@ -48,8 +48,8 @@ export const PostManagementPage: React.FC = () => {
       setFormData({});
       setAlertMessage('게시글이 생성되었습니다');
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '생성에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '생성에 실패했습니다');
       setShowErrorAlert(true);
     }
   };
@@ -78,8 +78,8 @@ export const PostManagementPage: React.FC = () => {
       setSelectedItem(null);
       setAlertMessage('게시글이 수정되었습니다');
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '수정에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '수정에 실패했습니다');
       setShowErrorAlert(true);
     }
   };
@@ -93,8 +93,8 @@ export const PostManagementPage: React.FC = () => {
       await loadData();
       setAlertMessage('삭제되었습니다');
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '삭제에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '삭제에 실패했습니다');
       setShowErrorAlert(true);
     }
   };
@@ -116,8 +116,8 @@ export const PostManagementPage: React.FC = () => {
         '복원';
       setAlertMessage(`${message}되었습니다`);
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '작업에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '작업에 실패했습니다');
       setShowErrorAlert(true);
     }
   };

@@ -3,14 +3,14 @@ import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Alert';
 import { FormSelect } from '@/components/forms/FormSelect';
-import { UserFormInput } from './UserFormInput';
-import type { User } from '@/services/userService.ts';
+import { UserFormInput } from './ui/UserFormInput.tsx';
+import type { User, UserInput } from '@/services/userService.ts';
 
 interface UserModalEditProps {
   isOpen: boolean;
   onClose: () => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: Partial<UserInput>;
+  setFormData: (data: Partial<UserInput>) => void;
   selectedItem: User | null;
   onSubmit: () => void;
 }
@@ -78,7 +78,7 @@ export const UserModalEdit: React.FC<UserModalEditProps> = ({
           <FormSelect
             name="role"
             value={formData.role || 'user'}
-            onChange={(value) => setFormData({ ...formData, role: value })}
+            onChange={(value) => setFormData({ ...formData, role: value as 'admin' | 'moderator' | 'user' })}
             options={[
               { value: 'user', label: '사용자' },
               { value: 'moderator', label: '운영자' },
@@ -90,7 +90,7 @@ export const UserModalEdit: React.FC<UserModalEditProps> = ({
           <FormSelect
             name="status"
             value={formData.status || 'active'}
-            onChange={(value) => setFormData({ ...formData, status: value })}
+            onChange={(value) => setFormData({ ...formData, status: value as 'active' | 'inactive' | 'suspended' })}
             options={[
               { value: 'active', label: '활성' },
               { value: 'inactive', label: '비활성' },

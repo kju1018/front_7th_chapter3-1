@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/Badge.tsx';
 import type { User } from '@/services/userService.ts';
 
 export const UserRoleBadge: React.FC<{ user: User }> = ({ user }) => {

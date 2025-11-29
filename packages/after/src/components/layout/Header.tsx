@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-lg font-bold text-primary-foreground">
-            L
+            T
           </div>
           <div className="flex flex-col">
             <h1 className="text-lg font-bold leading-none text-foreground">
@@ -74,15 +74,15 @@ export const Header: React.FC = () => {
 
           <div className="hidden text-right sm:block">
             <div className="text-sm font-semibold text-foreground">
-              Demo User
+              테오
             </div>
             <div className="text-xs text-muted-foreground">
-              demo@example.com
+              teo.v@frontend.com
             </div>
           </div>
           <Avatar className="h-10 w-10">
             <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-              DU
+              Te
             </AvatarFallback>
           </Avatar>
         </div>

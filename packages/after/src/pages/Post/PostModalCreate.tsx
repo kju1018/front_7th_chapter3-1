@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/Button';
 import { FormInput } from '@/components/forms/FormInput';
 import { FormSelect } from '@/components/forms/FormSelect';
 import { FormTextarea } from '@/components/forms/FormTextarea';
-import { PostFormInput } from './PostFormInput';
+import { PostFormInput } from './ui/PostFormInput.tsx';
+import type { PostInput } from '@/services/postService.ts';
 
 interface PostModalCreateProps {
   isOpen: boolean;
   onClose: () => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: Partial<PostInput>;
+  setFormData: (data: Partial<PostInput>) => void;
   onSubmit: () => void;
 }
 

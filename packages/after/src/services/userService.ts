@@ -8,6 +8,8 @@ export interface User {
   lastLogin?: string;
 }
 
+export type UserInput = Pick<User, 'username' | 'email' | 'role' | 'status' | 'lastLogin'>;
+
 const STORAGE_KEY = 'users_data';
 
 const getUsers = (): User[] => {
@@ -34,7 +36,7 @@ export const userService = {
     return users.find(u => u.id === id) || null;
   },
 
-  async create(userData: Omit<User, 'id' | 'createdAt'>): Promise<User> {
+  async create(userData: UserInput): Promise<User> {
 
     const users = getUsers();
 
@@ -57,7 +59,7 @@ export const userService = {
     return newUser;
   },
 
-  async update(id: number, userData: Partial<Omit<User, 'id' | 'createdAt'>>): Promise<User> {
+  async update(id: number, userData: Partial<UserInput>): Promise<User> {
     const users = getUsers();
     const index = users.findIndex(u => u.id === id);
 

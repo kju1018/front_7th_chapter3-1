@@ -2,7 +2,7 @@ import React from 'react';
 import { DataTable, type Column } from '@/components/ui/DataTable';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { PostStatusBadge } from './PostStatusBadge';
+import { PostStatusBadge } from './ui/PostStatusBadge.tsx';
 import type { Post } from '@/services/postService.ts';
 
 interface PostTableProps {

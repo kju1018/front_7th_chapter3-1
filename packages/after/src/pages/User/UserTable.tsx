@@ -1,8 +1,8 @@
 import React from 'react';
 import { DataTable, type Column } from '@/components/ui/DataTable';
 import { Button } from '@/components/ui/Button';
-import { UserRoleBadge } from './UserRoleBadge';
-import { UserStatusBadge } from './UserStatusBadge';
+import { UserRoleBadge } from './ui/UserRoleBadge.tsx';
+import { UserStatusBadge } from './ui/UserStatusBadge.tsx';
 import type { User } from '@/services/userService.ts';
 
 interface UserTableProps {

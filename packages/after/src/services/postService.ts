@@ -10,6 +10,8 @@ export interface Post {
   updatedAt?: string;
 }
 
+export type PostInput = Pick<Post, 'title' | 'content' | 'author' | 'category' | 'status' | 'updatedAt'>;
+
 const STORAGE_KEY = 'posts_data';
 
 const getPosts = (): Post[] => {
@@ -37,7 +39,7 @@ export const postService = {
     return posts.find(p => p.id === id) || null;
   },
 
-  async create(postData: Omit<Post, 'id' | 'createdAt' | 'views'>): Promise<Post> {
+  async create(postData: PostInput): Promise<Post> {
 
     const posts = getPosts();
 
@@ -57,7 +59,7 @@ export const postService = {
     return newPost;
   },
 
-  async update(id: number, postData: Partial<Omit<Post, 'id' | 'createdAt' | 'views'>>): Promise<Post> {
+  async update(id: number, postData: Partial<PostInput>): Promise<Post> {
     const posts = getPosts();
     const index = posts.findIndex(p => p.id === id);
 

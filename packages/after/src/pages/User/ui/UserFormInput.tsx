@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormInput } from '@/components/forms/FormInput';
+import { FormInput } from '@/components/forms/FormInput.tsx';
 
 interface UserFormInputProps {
   name: string;

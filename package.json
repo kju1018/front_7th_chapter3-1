@@ -22,7 +22,7 @@
     "test:run:after": "pnpm --filter @front_lite_chapter3-1/after test:run"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.14",
+    "@tailwindcss/postcss": "^4.1.17",
     "typescript": "~5.9.3"
   },
   "engines": {

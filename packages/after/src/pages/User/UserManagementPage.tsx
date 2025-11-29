@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/Button';
 import { Alert } from '@/components/ui/Alert';
 import { UserTable } from './UserTable';
 import { userService } from '@/services/userService.ts';
-import type { User } from '@/services/userService.ts';
+import type { User, UserInput } from '@/services/userService.ts';
 import {UserModalCreate} from "@/pages/User/UserModalCreate.tsx"
 import {UserModalEdit} from "@/pages/User/UserModalEdit.tsx"
 
@@ -17,7 +17,7 @@ export const UserManagementPage: React.FC = () => {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<Partial<UserInput>>({});
 
   useEffect(() => {
     loadData();
@@ -27,7 +27,7 @@ export const UserManagementPage: React.FC = () => {
     try {
       const result = await userService.getAll();
       setData(result);
-    } catch (error: any) {
+    } catch {
       setErrorMessage('데이터를 불러오는데 실패했습니다');
       setShowErrorAlert(true);
     }
@@ -36,8 +36,8 @@ export const UserManagementPage: React.FC = () => {
   const handleCreate = async () => {
     try {
       await userService.create({
-        username: formData.username,
-        email: formData.email,
+        username: formData.username!,
+        email: formData.email!,
         role: formData.role || 'user',
         status: formData.status || 'active',
       });
@@ -47,8 +47,8 @@ export const UserManagementPage: React.FC = () => {
       setFormData({});
       setAlertMessage('사용자가 생성되었습니다');
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '생성에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '생성에 실패했습니다');
       setShowErrorAlert(true);
     }
   };
@@ -76,8 +76,8 @@ export const UserManagementPage: React.FC = () => {
       setSelectedItem(null);
       setAlertMessage('사용자가 수정되었습니다');
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '수정에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '수정에 실패했습니다');
       setShowErrorAlert(true);
     }
   };
@@ -91,8 +91,8 @@ export const UserManagementPage: React.FC = () => {
       await loadData();
       setAlertMessage('삭제되었습니다');
       setShowSuccessAlert(true);
-    } catch (error: any) {
-      setErrorMessage(error.message || '삭제에 실패했습니다');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '삭제에 실패했습니다');
       setShowErrorAlert(true);
     }
   };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/Badge.tsx';
 import type { Post } from '@/services/postService.ts';
 
 export const PostStatusBadge: React.FC<{ post: Post }> = ({ post }) => {

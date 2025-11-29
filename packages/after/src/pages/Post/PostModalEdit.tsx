@@ -5,14 +5,14 @@ import { Alert } from '@/components/ui/Alert';
 import { FormInput } from '@/components/forms/FormInput';
 import { FormSelect } from '@/components/forms/FormSelect';
 import { FormTextarea } from '@/components/forms/FormTextarea';
-import { PostFormInput } from './PostFormInput';
-import type { Post } from '@/services/postService.ts';
+import { PostFormInput } from './ui/PostFormInput.tsx';
+import type { Post, PostInput } from '@/services/postService.ts';
 
 interface PostModalEditProps {
   isOpen: boolean;
   onClose: () => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: Partial<PostInput>;
+  setFormData: (data: Partial<PostInput>) => void;
   selectedItem: Post | null;
   onSubmit: () => void;
 }
